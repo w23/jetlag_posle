@@ -592,9 +592,11 @@ Framebuffer framebuffer;
 
 int w, h;
 #ifdef TOOL
+int clear = 0;
 void video_tool_resize(int W, int H) {
 	w = W; h = H;
 	screen.init(w, h);
+	clear = 1;
 }
 #endif
 void video_init(int W, int H) {
@@ -635,6 +637,11 @@ PROGRAMS(LOAD_PROGRAM)
 static const Program& renderPass(float tick, const Framebuffer& fb, const Program& p) {
 	fb.bind();
 	glViewport(0, 0, fb.w(), fb.h());
+
+	if (clear) {
+		glClear(GL_COLOR_BUFFER_BIT);
+		clear = 0;
+	}
 
 	int tslot = 0;
 	p.use(fb.w(), fb.h(), tick);
