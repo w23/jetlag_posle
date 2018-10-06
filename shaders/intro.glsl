@@ -360,16 +360,19 @@ void main() {
 		vec3 d = mix(D, D2, vec3(hash1(seedhash), hash1(seedhash+1.), hash1(seedhash+2.)));
 		vec3 sample_color = vec3(0.);
 		vec3 k = vec3(1.);
+		int raysteps = 80;
 		for (int b = 0; b < 4; ++b) {
 			float roughness = .9;
 			float L = 50.;
 			float l = 0.;
-			for (int i = 0; i < 40; ++i) {
+			for (int i = 0; i < raysteps; ++i) {
 				float dd = w(o + d * l);
 				l += dd;
 				if (dd < 0.002 * l || l > L)
 					break;
 			}
+
+			raysteps = 40;
 
 			vec3 emissive = vec3(0.);
 			vec3 albedo = vec3(.75, .75, .73);
@@ -377,7 +380,7 @@ void main() {
 			//roughness = .9;//.04;
 
 			if (l > L) {
-				emissive = vec3(2.) + vec3(30., 20., 10.) * pow(max(0.,dot(d, sundir)),10.);//*dot(d,vec3(0.,1.,0.)));
+				emissive = vec3(1., 1.6, 2.) + vec3(30., 20., 10.) * pow(max(0.,dot(d, sundir)),10.);//*dot(d,vec3(0.,1.,0.)));
 				//emissive *= 10.;
 				albedo = vec3(0.);
 				//o = o + d * l;
