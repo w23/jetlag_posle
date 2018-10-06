@@ -1,7 +1,7 @@
 //#version 130
 // TOOL
 //uniform vec2 R;
-uniform sampler2D T;
+uniform sampler2D F;
 //uniform int s;
 //float t = float(s)/88200.;
 //vec2 FR = vec2(640., 720.);//textureSize(T,0);
@@ -25,7 +25,7 @@ void main() {
 	//gl_FragColor = sqrt(texture2D(T, ((gl_FragCoord.xy - R*.5) * max(FR.x/R.x,FR.y/R.y)+FR*.5)/FR));
 
 	//gl_FragColor = vec4(uv, 0., 1.);
-	gl_FragColor = sqrt(texture2D(T, (gl_FragCoord.xy + .5 ) /
+	gl_FragColor = sqrt(texture2D(F, (gl_FragCoord.xy + .5 ) /
 				vec2(1280., 720.)
 				-vec2(.0,.5)/vec2(640.,720.)) * (.5 + .5 * mod(gl_FragCoord.x, 2.)));
 
