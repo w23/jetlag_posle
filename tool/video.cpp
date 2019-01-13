@@ -17,7 +17,9 @@
 #endif
 
 #include <GL/gl.h>
+#ifdef _WIN32
 #include "glext.h"
+#endif
 
 #include <stdint.h>
 
